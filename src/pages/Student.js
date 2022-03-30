@@ -18,7 +18,7 @@ const Student = () => {
     const findStudentDetails = async () => {
         let result;
         try {
-            await axios.patch('http://localhost:5000/teacher', { rollNumber: rollNumber })
+            await axios.patch('https://student-attendance2022.herokuapp.com/teacher', { rollNumber: rollNumber })
                 .then(res => {
                     result = res.data.imageURL;
                 })

@@ -24,7 +24,7 @@ const StudentDetails = () => {
     const [inputKey, setInputKey] = useState(Math.random().toString(36));
 
     useEffect(() => {
-        axios.get('http://localhost:5000/teacher')
+        axios.get('https://student-attendance2022.herokuapp.com/teacher')
             .then(res => {
                 setFetchData(res.data)
             })
@@ -58,7 +58,7 @@ const StudentDetails = () => {
             imageURL: imageFileUrl
         };
 
-        axios.post("http://localhost:5000/teacher", userData).then((response) => {
+        axios.post("https://student-attendance2022.herokuapp.com/teacher", userData).then((response) => {
             // console.log(response.data);
             console.log(response.status);
         });
@@ -100,7 +100,7 @@ const StudentDetails = () => {
             onDelete(temp);
         }
         console.log(id);
-        const url = 'http://localhost:5000/teacher'
+        const url = 'https://student-attendance2022.herokuapp.com/teacher'
         await axios.delete(`${url}/${id}`)
             .then((response) => {
                 console.log(response);
