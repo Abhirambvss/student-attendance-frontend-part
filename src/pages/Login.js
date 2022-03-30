@@ -40,7 +40,7 @@ function Login() {
         <div className="mx-2 px-2 flex justify-center h-screen items-center">
 
             {!login && (<GoogleLogin
-                clientId={clientId}
+                clientId='858497450675-u1qu337nrih4h9bouobiq1dktdpaisce.apps.googleusercontent.com'
                 buttonText="Login"
                 onSuccess={loginSuccess}
                 onFailure={responseGoogle}
