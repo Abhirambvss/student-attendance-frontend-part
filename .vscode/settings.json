@@ -1,0 +1,4 @@
+{
+	"appService.defaultWebAppToDeploy": "/subscriptions/fb30f407-249e-4476-a51a-797a90485f91/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/student-attendance",
+	"appService.deploySubpath": "."
+}
