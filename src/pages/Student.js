@@ -4,6 +4,7 @@ import axios from "axios";
 
 
 const Student = () => {
+    const BASE_URL = process.env.REACT_APP_BASE_URL
     const [rollNumber, setRollNumber] = useState(0);
     const [file, setFile] = useState({});
     const [verified, setVerified] = useState(false);
@@ -18,7 +19,7 @@ const Student = () => {
     const findStudentDetails = async () => {
         let result;
         try {
-            await axios.patch('https://student-attendance2022.herokuapp.com/teacher', { rollNumber: rollNumber })
+            await axios.patch(BASE_URL, { rollNumber: rollNumber })
                 .then(res => {
                     result = res.data.imageURL;
                 })

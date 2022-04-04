@@ -22,9 +22,9 @@ const StudentDetails = () => {
     // UI/form management
     const [uploading, setUploading] = useState(false);
     const [inputKey, setInputKey] = useState(Math.random().toString(36));
-
+    const BASE_URL = process.env.REACT_APP_BASE_URL
     useEffect(() => {
-        axios.get('https://student-attendance2022.herokuapp.com/teacher')
+        axios.get(BASE_URL)
             .then(res => {
                 setFetchData(res.data)
             })
@@ -58,7 +58,7 @@ const StudentDetails = () => {
             imageURL: imageFileUrl
         };
 
-        axios.post("https://student-attendance2022.herokuapp.com/teacher", userData).then((response) => {
+        axios.post(BASE_URL, userData).then((response) => {
             // console.log(response.data);
             console.log(response.status);
         });
@@ -100,7 +100,7 @@ const StudentDetails = () => {
             onDelete(temp);
         }
         console.log(id);
-        const url = 'https://student-attendance2022.herokuapp.com/teacher'
+        const url = BASE_URL
         await axios.delete(`${url}/${id}`)
             .then((response) => {
                 console.log(response);
@@ -143,7 +143,6 @@ const StudentDetails = () => {
             {storageConfigured && !uploading && DisplayForm()}
             {storageConfigured && uploading && <div>Uploading</div>}
             <hr />
-            {!storageConfigured && <div>Storage is not configured.</div>}
             <div className="flex justify-center">
                 <table className="table-fixed ">
                     <thead>
