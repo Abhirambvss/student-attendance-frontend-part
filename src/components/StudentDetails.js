@@ -140,7 +140,7 @@ const StudentDetails = () => {
 
     return (
         <div>
-            {storageConfigured && !uploading && DisplayForm()}
+            {DisplayForm()}
             {storageConfigured && uploading && <div>Uploading</div>}
             <hr />
             <div className="flex justify-center">
