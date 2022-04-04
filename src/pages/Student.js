@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 const Student = () => {
-    const BASE_URL = process.env.REACT_APP_BASE_URL
+    const BASE_URL = 'https://student-attendance2022.herokuapp.com/teacher'
     const [rollNumber, setRollNumber] = useState(0);
     const [file, setFile] = useState({});
     const [verified, setVerified] = useState(false);

@@ -22,7 +22,7 @@ const StudentDetails = () => {
     // UI/form management
     const [uploading, setUploading] = useState(false);
     const [inputKey, setInputKey] = useState(Math.random().toString(36));
-    const BASE_URL = process.env.REACT_APP_BASE_URL
+    const BASE_URL = 'https://student-attendance2022.herokuapp.com/teacher'
     useEffect(() => {
         axios.get(BASE_URL)
             .then(res => {
