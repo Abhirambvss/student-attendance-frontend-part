@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { uploadFileToBlob, deleteFiles, isStorageConfigured } from './blobStorage/addImageToBlob';
 import axios from "axios";
-
+import { TailSpin } from 'react-loader-spinner';
 const storageConfigured = isStorageConfigured();
 
 
@@ -13,6 +13,7 @@ const StudentDetails = () => {
         rollNumber: "",
     });
     const [blobList, setBlobList] = useState([]);
+    const ref = useRef();
 
     // current file to upload into container
     const [fileSelected, setFileSelected] = useState(null);
@@ -28,10 +29,7 @@ const StudentDetails = () => {
             .then(res => {
                 setFetchData(res.data)
             })
-
     })
-
-
 
     const onFileChange = (event) => {
         // capture file into state
@@ -66,6 +64,9 @@ const StudentDetails = () => {
             name: "",
             rollNumber: ""
         })
+        ref.current.value = "";
+        setFileSelected(null);
+
     }
 
     const onFileUpload = async () => {
@@ -99,14 +100,12 @@ const StudentDetails = () => {
             let temp = imageUrl.slice(imageUrl.lastIndexOf("/")).replace('/', "");
             onDelete(temp);
         }
-        console.log(id);
         const url = BASE_URL
         await axios.delete(`${url}/${id}`)
             .then((response) => {
                 console.log(response);
 
             })
-        console.log("hi");
     }
 
     // display form
@@ -132,48 +131,57 @@ const StudentDetails = () => {
                 onChange={handleOnChange} />
 
             <span className="text-gray-700">Image of Student</span>
-            <input type="file" accept="image/png,image/jpg,image/jpeg" className="mt-1 block rounded text-blue-500" onChange={onFileChange} />
+            <input type="file"
+                accept="image/png,image/jpg,image/jpeg"
+                className="mt-1 block rounded text-blue-500"
+                onChange={onFileChange}
+                ref={ref} />
             <button className=" bg-sky-500 hover:bg-sky-600 text-white border-2 rounded-lg border-black-500/100 p-2 m-2 justify-center" onClick={onSubmit}>Submit</button>
         </div>
-
     )
 
     return (
         <div>
             {DisplayForm()}
-            {storageConfigured && uploading && <div>Uploading</div>}
+            {(storageConfigured && uploading) ?
+                (<div className="flex justify-center">
+                    <TailSpin
+                        color="#0ea5e9"
+                        ariaLabel="loading-indicator" />
+                </div>)
+                : (<><div className="flex justify-center">
+                    <table className="table-fixed ">
+                        <thead>
+                            <tr>
+                                <th className="m-2 p-2 content-evenly">Name</th>
+                                <th className="m-2 p-2 content-evenly">ID</th>
+                                <th className="m-2 p-2 content-evenly">Photo</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            {fetchData.map((item) => {
+                                return (
+                                    <tr key={item._id}>
+                                        <td className="m-2 p-2 content-evenly"><p>{item.name}</p>
+                                        </td>
+                                        <td className="m-2 p-2 content-evenly"><p>{item.rollNumber}</p></td>
+                                        <td className="m-2 p-2 content-evenly"> {(item.imageURL) && <img src={item.imageURL} width="100" height="100"></img>}</td>
+                                        <td className="m-2 p-2 content-evenly"> <button className=" bg-sky-500 hover:bg-sky-600 text-white border-2 rounded-lg border-black-500/100 p-2 m-2 justify-center"
+                                            onClick={() => {
+                                                deleteDoc(item._id, item.imageURL);
+                                            }}>Delete</button></td>
+                                    </tr>
+
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                </div></>)}
             <hr />
-            <div className="flex justify-center">
-                <table className="table-fixed ">
-                    <thead>
-                        <tr>
-                            <th className="m-2 p-2 content-evenly">Name</th>
-                            <th className="m-2 p-2 content-evenly">ID</th>
-                            <th className="m-2 p-2 content-evenly">Photo</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
 
-
-                        {fetchData.map((item) => {
-                            return (
-                                <tr key={item._id}>
-                                    <td className="m-2 p-2 content-evenly"><p>{item.name}</p>
-                                    </td>
-                                    <td className="m-2 p-2 content-evenly"><p>{item.rollNumber}</p></td>
-                                    <td className="m-2 p-2 content-evenly"> {(item.imageURL) && <img src={item.imageURL} width="100" height="100"></img>}</td>
-                                    <td className="m-2 p-2 content-evenly"> <button className=" bg-sky-500 hover:bg-sky-600 text-white border-2 rounded-lg border-black-500/100 p-2 m-2 justify-center"
-                                        onClick={() => {
-                                            deleteDoc(item._id, item.imageURL);
-                                        }}>Delete</button></td>
-                                </tr>
-
-                            )
-                        })}
-                    </tbody>
-                </table>
-            </div>
         </div>
     );
 };

@@ -1,91 +1,85 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import { Link } from "react-router-dom";
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
-
-
-const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-
-
+import { GoogleLogout } from 'react-google-login';
+import { useHistory } from "react-router-dom";
 const NavBar = () => {
-    const [showloginButton, setShowloginButton] = useState(true);
-    const [showLogoutButton, setShowlogoutButton] = useState(false);
-    const [name, setName] = useState(null);
-    const [proPic, setProPic] = useState(null);
-
-    const onLoginSuccess = (res) => {
-        console.log('Login Success:', res.profileObj);
-        // localStorage.setItem('User', res.profileObj);
-        setName(res.profileObj.givenName);
-        setProPic(res.profileObj.imageUrl);
-        setShowloginButton(false);
-    };
-
-    const onLoginFailure = (res) => {
-        console.log('Login Failed:', res);
-    };
-
-    const onSignoutSuccess = () => {
+    const [navbarOpen, setNavbarOpen] = React.useState(false);
+    const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID
+    const [showLogoutButton, setShowlogoutButton] = useState(false)
+    const login = localStorage.getItem('login')
+    const name = localStorage.getItem('name')
+    const imageUrl = localStorage.getItem('imageUrl')
+    const history = useHistory();
+    const Logout = () => {
+        localStorage.removeItem('login')
+        localStorage.removeItem('name')
+        localStorage.removeItem('imageUrl')
+        console.clear()
         alert("You have been logged out successfully");
-        console.clear();
-        setShowloginButton(true);
-    };
+        history.push("/")
 
+
+    }
     return (
-        <div style={{ position: 'fixed', zIndex: '100' }} className="w-full px-8 py-2 lg:px-36 lg:py-4 bg-col1 text-white border-b-2 border-col2 flex justify-between items-center">
+        <>
+            <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-sky-500 mb-3">
+                <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
+                    <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
+                        <div className="text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase text-white">
+                            <Link to="/profession">  Home</Link>
 
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <Link to="/about">
-                    <button className=" border-2 border-col4 px-2 lg:px-4 py-1 hover:bg-col5 hover:border-col5 text-base lg:text-lg  rounded-xl transition-all duration-150 ease-in mx-8 ">My algorithms</button>
-                </Link>
-
-                {showloginButton ?
-                    <GoogleLogin
-                        clientId={clientId}
-                        render={renderProps => (
-                            <button className=" border-2 border-col4 px-2 lg:px-4 py-1 hover:bg-col5 hover:border-col5 text-base lg:text-lg  rounded-xl transition-all duration-150 ease-in" onClick={renderProps.onClick} disabled={renderProps.disabled}>Login</button>
-                        )}
-                        buttonText="Sign In"
-                        onSuccess={onLoginSuccess}
-                        onFailure={onLoginFailure}
-                        cookiePolicy={'single_host_origin'}
-                        isSignedIn={true}
-                    />
-                    : <>
-                        {showLogoutButton ?
-                            <GoogleLogout
-                                clientId={clientId}
-                                render={renderProps => (
-                                    <div>
-                                        <button
-                                            onClick={renderProps.onClick}
-                                            disabled={renderProps.disabled}>
-                                            Logout
-                                        </button>
-                                    </div>
-                                )}
-                                buttonText="Sign Out"
-                                onLogoutSuccess={onSignoutSuccess}
-                            >
-                            </GoogleLogout>
-                            :
-                            <>
-                            </>
-                        }
-
-                        <div style={{ display: 'flex' }} onClick={() => setShowlogoutButton(!showLogoutButton)}>
-                            <span style={{ margin: "3px 15px 0px 0px", fontSize: "20px" }}>{name}</span>
-                            <span style={{ margin: "3px 15px 0px 0px", zIndex: "10" }}>
-                                <img
-                                    className="dropbtn"
-                                    src={proPic ? proPic : null}
-                                    alt="Profile image"
-                                />
-                            </span>
                         </div>
-                    </>}
-            </div>
-        </div>
-    )
-}
 
+                        <div className="flex flex-row justify-between items-center" >
+                            <div>
+                                {login && <div>
+                                    <span className="text-white">Welcome {name}</span>
+                                </div>}
+                            </div>
+
+                        </div>
+                        <button
+                            className="text-white cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
+                            type="button"
+                            onClick={() => setNavbarOpen(!navbarOpen)}
+                        >
+                        </button>
+                    </div>
+                    <div
+                        className={
+                            "lg:flex flex-grow items-center" +
+                            (navbarOpen ? " flex" : " hidden")
+                        }
+                        id="example-navbar-danger"
+                    >
+                        <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
+
+                            <li className="nav-item">
+                                <div
+                                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                                    onClick={() => { setShowlogoutButton(!showLogoutButton) }}
+                                >
+                                    {login && <img height={50} width={50} className="rounded-full" src={imageUrl} alt="profilePicture" />}
+                                    {/* <i className="fab fa-twitter text-lg leading-lg text-white opacity-75"></i><span className="ml-2">Tweet</span> */}
+                                </div>
+                            </li>
+                            <li className="nav-item">
+                                <div
+                                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                                >
+                                    {showLogoutButton && <GoogleLogout
+                                        clientId={clientId}
+                                        buttonText="Logout"
+                                        onLogoutSuccess={Logout}
+                                    >
+                                    </GoogleLogout>}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </>
+    );
+}
 export default NavBar

@@ -1,8 +1,7 @@
-// import './App.css';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import { GoogleLogin } from 'react-google-login';
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
-
+import Alert from '@mui/material/Alert';
 
 function Login() {
 
@@ -25,33 +24,30 @@ function Login() {
             localStorage.setItem('name', response.profileObj.name)
             localStorage.setItem('imageUrl', response.profileObj.imageUrl)
             history.push("/profession");
-
-
         }
-
-
     }
 
+    return (<>
 
+        <Alert className="object-top flex justify-center items-center" severity="info">
+            For best experience, please open the application in desktop mode.
+        </Alert>
 
-    return (
+        <div className="px-2 flex justify-center h-screen items-center bg-gradient-to-r from-cyan-500 to-blue-500">
 
-
-        <div className="mx-2 px-2 flex justify-center h-screen items-center">
-
-            {!login && (<GoogleLogin
-                clientId='858497450675-u1qu337nrih4h9bouobiq1dktdpaisce.apps.googleusercontent.com'
-                buttonText="Login"
-                onSuccess={loginSuccess}
-                onFailure={responseGoogle}
-                cookiePolicy={'single_host_origin'}
-                isSignedIn={true}
-            // className="m-auto"
-            />)}
-
-
+            <div>
+                {!login && (<GoogleLogin
+                    clientId={clientId}
+                    buttonText="Login"
+                    onSuccess={loginSuccess}
+                    onFailure={responseGoogle}
+                    cookiePolicy={'single_host_origin'}
+                    isSignedIn={true}
+                // className="m-auto"
+                />)}
+            </div>
         </div>
-
+    </>
     );
 }
 
