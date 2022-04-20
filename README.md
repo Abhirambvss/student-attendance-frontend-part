@@ -4,6 +4,8 @@ This project is successfully deployed and is available at : https://student-atte
 
 The codebase for the backend part of this project can be accessed here : https://github.com/Abhirambvss/student-attendance-backend
 
+The main **Azure** technologies used in this project are **Azure Blob Storage** and **Azure Face API**
+
 ## Project Explanation
 
 This is a MERN stack web application made as a part of Microsoft Future Ready Talent Program.
@@ -15,6 +17,8 @@ The face verification of this project is done with the help of **Microsoft Azure
 This attendance verification application allows the teachers/professors to add the student details along with their photo and allows the students to upload their photo to the application for verification.
 
 Then the faces in teacher uploaded image and student uploaded image are identified and then will be verified with each other.This identification and verification of faces is done through **Microsoft Azure Face API**.
+
+The images uploaded by the teacher are uploaded to **Azure Blob Storage**
 
 ## The flow of the application is explained below through detailed screenshots 
 
