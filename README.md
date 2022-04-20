@@ -2,10 +2,21 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Project Explanation
 
-In the project directory, you can run:
+This is a MERN stack web application made as a part of Microsoft Future Ready Talent Program.
 
+This project will verify the attendance of the students through face verification.
+
+The face verification of this project is done with the help of **Microsoft Azure Face API**.
+
+This attendance verification application allows the teachers/professors to add the student details along with their photo and allows the students to upload their photo to the application for verification.
+
+Then the faces in teacher uploaded image and student uploaded image are identified and then will be verified with each other.This identification and verification of faces is done through **Microsoft Azure Face API**.
+
+The flow of the application is explained below through detailed screenshots :
+
+The flow of 
 ### `npm start`
 
 Runs the app in the development mode.\
