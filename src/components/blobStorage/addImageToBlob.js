@@ -25,17 +25,17 @@ const getBlobsInContainer = async (containerClient) => {
     return returnedBlobUrls;
 }
 
-const getBlobNamesInContainer = async (containerClient) => {
-    const returnedBlobUrls = [];
+// const getBlobNamesInContainer = async (containerClient) => {
+//     const returnedBlobUrls = [];
 
-    // get list of blobs in container
-    for await (const blob of containerClient.listBlobsFlat()) {
-        // if image is public, just construct URL
-        returnedBlobUrls.push(blob.name);
-    }
+//     // get list of blobs in container
+//     for await (const blob of containerClient.listBlobsFlat()) {
+//         // if image is public, just construct URL
+//         returnedBlobUrls.push(blob.name);
+//     }
 
-    return returnedBlobUrls;
-}
+//     return returnedBlobUrls;
+// }
 
 const createBlobInContainer = async (containerClient, file) => {
 
