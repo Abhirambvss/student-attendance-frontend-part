@@ -1,6 +1,6 @@
 # Student Attendance Web App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is successfully deployed and is available at :https://student-attendance2022.netlify.app/
 
 ## Project Explanation
 
@@ -16,7 +16,6 @@ Then the faces in teacher uploaded image and student uploaded image are identifi
 
 The flow of the application is explained below through detailed screenshots :
 
-The flow of 
 ### `npm start`
 
 Runs the app in the development mode.\
