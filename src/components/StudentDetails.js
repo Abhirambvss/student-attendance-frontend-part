@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { uploadFileToBlob, deleteFiles, isStorageConfigured } from './blobStorage/addImageToBlob';
+import { uploadFileToBlob, isStorageConfigured } from './blobStorage/addImageToBlob';
 import axios from "axios";
 import { TailSpin } from 'react-loader-spinner';
 const storageConfigured = isStorageConfigured();
@@ -12,7 +12,7 @@ const StudentDetails = () => {
         name: "",
         rollNumber: "",
     });
-    const [blobList, setBlobList] = useState([]);
+    // const [blobList, setBlobList] = useState([]);
     const ref = useRef();
 
     // current file to upload into container
@@ -22,7 +22,7 @@ const StudentDetails = () => {
 
     // UI/form management
     const [uploading, setUploading] = useState(false);
-    const [inputKey, setInputKey] = useState(Math.random().toString(36));
+    // const [inputKey, setInputKey] = useState(Math.random().toString(36));
     const BASE_URL = 'https://student-attendance2022.herokuapp.com/teacher'
     useEffect(() => {
         axios.get(BASE_URL)
@@ -77,22 +77,23 @@ const StudentDetails = () => {
         const blobsInContainer = await uploadFileToBlob(fileSelected);
         // setImageUrl(blobsInContainer);
         // prepare UI for results
-        setBlobList(blobsInContainer);
+
+        // setBlobList(blobsInContainer);
 
         // reset state/form
         setFileSelected(null);
         setUploading(false);
-        setInputKey(Math.random().toString(36));
+        // setInputKey(Math.random().toString(36));
         return blobsInContainer;
     };
 
     const onDelete = async (imageFile) => {
         setUploading(true);
-        const blobsInContainer = await deleteFiles(imageFile);
-        setBlobList(blobsInContainer);
+        // const blobsInContainer = await deleteFiles(imageFile);
+        // setBlobList(blobsInContainer);
         setFileSelected(null);
         setUploading(false);
-        setInputKey(Math.random().toString(36));
+        // setInputKey(Math.random().toString(36));
     }
 
     const deleteDoc = async (id, imageUrl) => {
@@ -168,7 +169,7 @@ const StudentDetails = () => {
                                         <td className="m-2 p-2 content-evenly"><p>{item.name}</p>
                                         </td>
                                         <td className="m-2 p-2 content-evenly"><p>{item.rollNumber}</p></td>
-                                        <td className="m-2 p-2 content-evenly"> {(item.imageURL) && <img src={item.imageURL} width="100" height="100"></img>}</td>
+                                        <td className="m-2 p-2 content-evenly"> {(item.imageURL) && <img src={item.imageURL} width="100" height="100" alt="profile"></img>}</td>
                                         <td className="m-2 p-2 content-evenly"> <button className=" bg-sky-500 hover:bg-sky-600 text-white border-2 rounded-lg border-black-500/100 p-2 m-2 justify-center"
                                             onClick={() => {
                                                 deleteDoc(item._id, item.imageURL);
