@@ -1,7 +1,5 @@
 import axios from "axios";
-const baseURL = process.env.REACT_APP_FACE_API_ENDPOINT;
 const subscriptionKey = process.env.REACT_APP_FACE_API_KEY
-const faceAttributes = "age,gender,headPose,smile,facialHair,glasses,emotion,hair,makeup,occlusion,accessories,blur,exposure,noise";
 const detectionModel = "detection_01";
 export const faceApiForUrl = axios.create({
     // baseURL: baseURL,
