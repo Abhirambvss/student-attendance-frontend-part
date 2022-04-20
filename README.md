@@ -14,7 +14,56 @@ This attendance verification application allows the teachers/professors to add t
 
 Then the faces in teacher uploaded image and student uploaded image are identified and then will be verified with each other.This identification and verification of faces is done through **Microsoft Azure Face API**.
 
-The flow of the application is explained below through detailed screenshots :
+## The flow of the application is explained below through detailed screenshots 
+
+### The Login Page
+
+Teachers or Students anyone who want to use the application must sign in using the Google Account as shown to proceed further
+
+![login](https://user-images.githubusercontent.com/67111658/164230897-2f9c4cb4-b338-4481-b54c-61ebbb5d9f14.PNG)
+
+### Home Page
+
+After Signing in, the interface will look like this.Here Teachers or Students should select their respective option to proceed further
+
+![homepage](https://user-images.githubusercontent.com/67111658/164232187-109d61f6-1dd3-498c-8931-4ab09cb37a2a.PNG)
+
+### Teacher Page
+
+After clicking the teacher option, the user will be navigated to the teacher page
+
+![teacher page](https://user-images.githubusercontent.com/67111658/164233598-d67b9459-c42a-4ba5-a70d-7b42dde070a9.PNG)
+
+Now, the teacher can fill the details of students and submit them to store the student details to our database
+
+![Teacher filling](https://user-images.githubusercontent.com/67111658/164234010-0afbb633-5828-4a88-9717-3956d571d8dc.PNG)
+
+On Submitting, the details will be stored to the database and will be displayed to the teacher as shown
+
+![teacher submitted](https://user-images.githubusercontent.com/67111658/164234316-9c191633-b75c-4f98-b8b0-fc57b9f5e936.PNG)
+
+If the teacher want to delete the student details then simply by clicking the delete button the details will be deleted
+
+![teacher page](https://user-images.githubusercontent.com/67111658/164233598-d67b9459-c42a-4ba5-a70d-7b42dde070a9.PNG)
+
+### Student Page
+
+The student page looks as shown below
+
+![Student page](https://user-images.githubusercontent.com/67111658/164235008-71c00060-29b4-4c71-8479-eca85681a4aa.PNG)
+
+Now, the student can verify their attendance by entering their roll number and uploading a photo as shown
+
+
+At any point of time, if the user want to logout then simply click the profile picture in the header
+
+![logout](https://user-images.githubusercontent.com/67111658/164232531-77a3a979-505b-4ac8-b195-c2df35eb7f91.PNG)
+
+After Clicking the logout button, the user will be logged out successfully
+
+![logout success](https://user-images.githubusercontent.com/67111658/164232721-cef8641b-2345-4376-8f06-21273822efdd.PNG)
+
+
 
 ### `npm start`
 
