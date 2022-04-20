@@ -4,6 +4,8 @@ This project is successfully deployed and is available at : https://student-atte
 
 The codebase for the backend part of this project can be accessed here : https://github.com/Abhirambvss/student-attendance-backend
 
+The demo video for the project can be downloaded from here : https://drive.google.com/file/d/1si5GKQsbdj-USohsoXy6b-NZSvTnolI5/view?usp=sharing
+
 The main **Azure** technologies used in this project are **Azure Blob Storage** and **Azure Face API**
 
 ## Project Explanation
