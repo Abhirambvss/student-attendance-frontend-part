@@ -1,11 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { uploadFileToBlob, isStorageConfigured } from './blobStorage/addImageToBlob';
+import { useParams } from 'react-router-dom';
 import axios from "axios";
 import { TailSpin } from 'react-loader-spinner';
 const storageConfigured = isStorageConfigured();
 
 
 const StudentDetails = () => {
+    const { CourseCode } = useParams();
     const [fetchData, setFetchData] = useState([]);
     const [fileName, setFileName] = useState("");
     const [data, setData] = useState({
@@ -23,11 +25,13 @@ const StudentDetails = () => {
     // UI/form management
     const [uploading, setUploading] = useState(false);
     // const [inputKey, setInputKey] = useState(Math.random().toString(36));
-    const BASE_URL = 'https://student-attendance2022.herokuapp.com/teacher'
+    // const BASE_URL = 'https://student-attendance2022.herokuapp.com/teacher'
+    const BASE_URL = 'http://localhost:5000/teacher'
     useEffect(() => {
-        axios.get(BASE_URL)
+        axios.get(`${BASE_URL}/${CourseCode}`)
             .then(res => {
-                setFetchData(res.data)
+                setFetchData(res.data.Students)
+                // console.log(res.data.Students);
             })
     })
 
@@ -44,28 +48,40 @@ const StudentDetails = () => {
         });
     }
     const onSubmit = async (e) => {
-
         e.preventDefault();
-        const imageUrl = await onFileUpload();
-        console.log(imageUrl);
-        const imageFileUrl = 'https://abhiramstudentattendance.blob.core.windows.net/student-attendance/' + fileName
-        console.log(imageFileUrl);
-        const userData = {
-            name: data.name,
-            rollNumber: data.rollNumber,
-            imageURL: imageFileUrl
-        };
+        if (data && fileSelected) {
+            const imageUrl = await onFileUpload();
+            console.log(imageUrl);
+            const imageFileUrl = 'https://abhiramstudentattendance.blob.core.windows.net/student-attendance/' + fileName
+            const userData = {
+                name: data.name,
+                rollNumber: data.rollNumber,
+                imageURL: imageFileUrl,
+                CourseCode: CourseCode
+            };
+            try {
+                axios.post('http://localhost:5000/teacher', userData).then((response) => {
+                    console.log(response.data);
+                    if (response.data.message) {
+                        alert(response.data.message);
+                    }
+                    console.log(response.status);
+                });
+            } catch (error) {
+                alert(error.message);
+            }
 
-        axios.post(BASE_URL, userData).then((response) => {
-            // console.log(response.data);
-            console.log(response.status);
-        });
-        setData({
-            name: "",
-            rollNumber: ""
-        })
-        ref.current.value = "";
-        setFileSelected(null);
+            setData({
+                name: "",
+                rollNumber: ""
+            })
+            ref.current.value = "";
+            setFileSelected(null);
+        }
+        else {
+            alert("Please fill all the fields");
+            window.location.reload();
+        }
 
     }
 
@@ -102,10 +118,10 @@ const StudentDetails = () => {
             onDelete(temp);
         }
         const url = BASE_URL
-        await axios.delete(`${url}/${id}`)
+        await axios.delete(`${url}/${id}`, { data: { CourseCode: CourseCode } })
             .then((response) => {
                 console.log(response);
-
+                alert(response.data.message);
             })
     }
 
@@ -161,7 +177,6 @@ const StudentDetails = () => {
                             </tr>
                         </thead>
                         <tbody>
-
 
                             {fetchData.map((item) => {
                                 return (

@@ -14,6 +14,7 @@ const NavBar = () => {
         localStorage.removeItem('login')
         localStorage.removeItem('name')
         localStorage.removeItem('imageUrl')
+        localStorage.removeItem('email')
         console.clear()
         alert("You have been logged out successfully");
         history.push("/")

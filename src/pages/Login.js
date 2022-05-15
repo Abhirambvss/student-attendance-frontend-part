@@ -21,6 +21,7 @@ function Login() {
             setImageUrl(response.profileObj.imageUrl)
             console.log(response.profileObj);
             localStorage.setItem('login', 1)
+            localStorage.setItem('email', response.profileObj.email)
             localStorage.setItem('name', response.profileObj.name)
             localStorage.setItem('imageUrl', response.profileObj.imageUrl)
             history.push("/profession");
