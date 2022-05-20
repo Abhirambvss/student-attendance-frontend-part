@@ -12,7 +12,7 @@ const CourseDetails = () => {
         code: "",
     });
     const email = localStorage.getItem('email');
-    const BASE_URL = 'http://localhost:5000/course'
+    const BASE_URL = 'https://student-attendance2022.herokuapp.com/course'
     useEffect(() => {
         axios.get(`${BASE_URL}/${email}`)
             .then(res => {
@@ -36,7 +36,7 @@ const CourseDetails = () => {
             email: localStorage.getItem('email')
         };
         try {
-            axios.post('http://localhost:5000/course', userData).then((response) => {
+            axios.post('https://student-attendance2022.herokuapp.com/course', userData).then((response) => {
                 console.log(response.data);
                 console.log(response.status);
             });
@@ -48,6 +48,14 @@ const CourseDetails = () => {
             name: "",
             code: ""
         })
+    }
+    const deleteCourse = async (id) => {
+        await axios.delete(`${BASE_URL}/${id}`)
+            .then((response) => {
+                console.log(response);
+                alert(response.data.message);
+            })
+
     }
     const displayForm = () => {
         return (<div className="flex flex-col justify-between items-center">
@@ -103,8 +111,8 @@ const CourseDetails = () => {
                                     <td className="m-2 p-2 content-evenly">
                                         <Link to={`/teacher/${item.CourseCode}`}>
                                             <button className=" bg-sky-500 hover:bg-sky-600 text-white border-2 rounded-lg border-black-500/100 p-2 m-2 justify-center">Add Students</button>
-
                                         </Link>
+                                        <button className=" bg-sky-500 hover:bg-sky-600 text-white border-2 rounded-lg border-black-500/100 p-2 m-2 justify-center" onClick={() => { deleteCourse(item._id) }}>Delete Course</button>
                                     </td>
                                 </tr>
 

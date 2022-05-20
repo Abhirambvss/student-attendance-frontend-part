@@ -25,8 +25,7 @@ const StudentDetails = () => {
     // UI/form management
     const [uploading, setUploading] = useState(false);
     // const [inputKey, setInputKey] = useState(Math.random().toString(36));
-    // const BASE_URL = 'https://student-attendance2022.herokuapp.com/teacher'
-    const BASE_URL = 'http://localhost:5000/teacher'
+    const BASE_URL = 'https://student-attendance2022.herokuapp.com/teacher'
     useEffect(() => {
         axios.get(`${BASE_URL}/${CourseCode}`)
             .then(res => {
@@ -60,7 +59,7 @@ const StudentDetails = () => {
                 CourseCode: CourseCode
             };
             try {
-                axios.post('http://localhost:5000/teacher', userData).then((response) => {
+                axios.post(BASE_URL, userData).then((response) => {
                     console.log(response.data);
                     if (response.data.message) {
                         alert(response.data.message);

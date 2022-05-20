@@ -19,7 +19,7 @@ const Student = () => {
     // const [verified, setVerified] = useState(false);
     const email = localStorage.getItem('email')
     useEffect(() => {
-        axios.get(`http://localhost:5000/student/${email}`)
+        axios.get(`https://student-attendance2022.herokuapp.com/student/${email}`)
             .then(res => {
                 // console.log(res.data);
                 const result = res.data;
@@ -43,7 +43,7 @@ const Student = () => {
         let result;
         if (CourseCode && rollNumber && file) {
             try {
-                await axios.patch('http://localhost:5000/teacher', {
+                await axios.patch('https://student-attendance2022.herokuapp.com/teacher', {
                     rollNumber: rollNumber,
                     CourseCode: CourseCode
                 })
@@ -134,7 +134,7 @@ const Student = () => {
                     course: CourseCode
                 }
                 sendEmail(emailRequirements);
-                await axios.post('http://localhost:5000/student',
+                await axios.post('https://student-attendance2022.herokuapp.com/student',
                     {
                         name: localStorage.getItem('name'),
                         email: localStorage.getItem('email'),
@@ -196,7 +196,7 @@ const Student = () => {
 
 
                         {
-                            fetchData.attendanceDetails.slice(0).reverse().map((arrayItem, index) => {
+                            fetchData.attendanceDetails.reverse().map((arrayItem, index) => {
                                 return (<>
                                     <tr key={index}>
                                         <td className="m-2 p-2 content-evenly"><p>{fetchData.name}</p>
