@@ -86,8 +86,8 @@ const Student = () => {
             // setOutputImage(true);
         }
         catch (err) {
-            console.log(err.response);
-            window.alert("An error occured");
+            // console.log(err.response);
+            window.alert("An error occured.Please try again");
         }
         return result;
     }
@@ -145,11 +145,11 @@ const Student = () => {
                         console.log(res.data);
                     })
             }
-            console.log(response1.data);
+            // console.log(response1.data);
             setUploading(false);
         }
         catch (err) {
-            console.log(err);
+            // console.log(err);
             window.alert("An error occured.Please try again");
             window.location.reload();
         }
@@ -196,7 +196,7 @@ const Student = () => {
 
 
                         {
-                            fetchData.attendanceDetails.reverse().map((arrayItem, index) => {
+                            fetchData && fetchData.attendanceDetails.reverse().map((arrayItem, index) => {
                                 return (<>
                                     <tr key={index}>
                                         <td className="m-2 p-2 content-evenly"><p>{fetchData.name}</p>
