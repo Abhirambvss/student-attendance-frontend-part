@@ -6,7 +6,7 @@ The codebase for the backend part of this project can be accessed here : https:/
 
 ## Project Explanation
 
-This is a MERN stack web application made as a part of IT413 NoSQL databases.
+This is a MERN stack web application made as a part of Microsoft Future Ready Talent.
 
 This project will verify the attendance of the students through face verification.
 
